@@ -1,0 +1,503 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> ifelse
+Rule 1     ifelse -> IF LPAREN condition RPAREN block else_part
+Rule 2     else_part -> ELSE block
+Rule 3     else_part -> empty
+Rule 4     condition -> expression EQ expression
+Rule 5     condition -> expression NEQ expression
+Rule 6     condition -> expression LT expression
+Rule 7     condition -> expression GT expression
+Rule 8     condition -> expression LE expression
+Rule 9     condition -> expression GE expression
+Rule 10    expression -> IDENTIFIER
+Rule 11    expression -> NUMBER
+Rule 12    expression -> IDENTIFIER PLUS NUMBER
+Rule 13    expression -> IDENTIFIER MINUS NUMBER
+Rule 14    assignment -> IDENTIFIER ASSIGN expression SEMICOLON
+Rule 15    block -> LBRACE statement_list RBRACE
+Rule 16    statement_list -> statement
+Rule 17    statement_list -> statement_list statement
+Rule 18    statement -> assignment
+Rule 19    statement -> ifelse
+Rule 20    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ASSIGN               : 14
+ELSE                 : 2
+EQ                   : 4
+GE                   : 9
+GT                   : 7
+IDENTIFIER           : 10 12 13 14
+IF                   : 1
+LBRACE               : 15
+LE                   : 8
+LPAREN               : 1
+LT                   : 6
+MINUS                : 13
+NEQ                  : 5
+NUMBER               : 11 12 13
+PLUS                 : 12
+RBRACE               : 15
+RPAREN               : 1
+SEMICOLON            : 14
+error                : 
+
+Nonterminals, with rules where they appear
+
+assignment           : 18
+block                : 1 2
+condition            : 1
+else_part            : 1
+empty                : 3
+expression           : 4 4 5 5 6 6 7 7 8 8 9 9 14
+ifelse               : 19 0
+statement            : 16 17
+statement_list       : 15 17
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . ifelse
+    (1) ifelse -> . IF LPAREN condition RPAREN block else_part
+
+    IF              shift and go to state 2
+
+    ifelse                         shift and go to state 1
+
+state 1
+
+    (0) S' -> ifelse .
+
+
+
+state 2
+
+    (1) ifelse -> IF . LPAREN condition RPAREN block else_part
+
+    LPAREN          shift and go to state 3
+
+
+state 3
+
+    (1) ifelse -> IF LPAREN . condition RPAREN block else_part
+    (4) condition -> . expression EQ expression
+    (5) condition -> . expression NEQ expression
+    (6) condition -> . expression LT expression
+    (7) condition -> . expression GT expression
+    (8) condition -> . expression LE expression
+    (9) condition -> . expression GE expression
+    (10) expression -> . IDENTIFIER
+    (11) expression -> . NUMBER
+    (12) expression -> . IDENTIFIER PLUS NUMBER
+    (13) expression -> . IDENTIFIER MINUS NUMBER
+
+    IDENTIFIER      shift and go to state 6
+    NUMBER          shift and go to state 7
+
+    condition                      shift and go to state 4
+    expression                     shift and go to state 5
+
+state 4
+
+    (1) ifelse -> IF LPAREN condition . RPAREN block else_part
+
+    RPAREN          shift and go to state 8
+
+
+state 5
+
+    (4) condition -> expression . EQ expression
+    (5) condition -> expression . NEQ expression
+    (6) condition -> expression . LT expression
+    (7) condition -> expression . GT expression
+    (8) condition -> expression . LE expression
+    (9) condition -> expression . GE expression
+
+    EQ              shift and go to state 9
+    NEQ             shift and go to state 10
+    LT              shift and go to state 11
+    GT              shift and go to state 12
+    LE              shift and go to state 13
+    GE              shift and go to state 14
+
+
+state 6
+
+    (10) expression -> IDENTIFIER .
+    (12) expression -> IDENTIFIER . PLUS NUMBER
+    (13) expression -> IDENTIFIER . MINUS NUMBER
+
+    EQ              reduce using rule 10 (expression -> IDENTIFIER .)
+    NEQ             reduce using rule 10 (expression -> IDENTIFIER .)
+    LT              reduce using rule 10 (expression -> IDENTIFIER .)
+    GT              reduce using rule 10 (expression -> IDENTIFIER .)
+    LE              reduce using rule 10 (expression -> IDENTIFIER .)
+    GE              reduce using rule 10 (expression -> IDENTIFIER .)
+    RPAREN          reduce using rule 10 (expression -> IDENTIFIER .)
+    SEMICOLON       reduce using rule 10 (expression -> IDENTIFIER .)
+    PLUS            shift and go to state 15
+    MINUS           shift and go to state 16
+
+
+state 7
+
+    (11) expression -> NUMBER .
+
+    EQ              reduce using rule 11 (expression -> NUMBER .)
+    NEQ             reduce using rule 11 (expression -> NUMBER .)
+    LT              reduce using rule 11 (expression -> NUMBER .)
+    GT              reduce using rule 11 (expression -> NUMBER .)
+    LE              reduce using rule 11 (expression -> NUMBER .)
+    GE              reduce using rule 11 (expression -> NUMBER .)
+    RPAREN          reduce using rule 11 (expression -> NUMBER .)
+    SEMICOLON       reduce using rule 11 (expression -> NUMBER .)
+
+
+state 8
+
+    (1) ifelse -> IF LPAREN condition RPAREN . block else_part
+    (15) block -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 18
+
+    block                          shift and go to state 17
+
+state 9
+
+    (4) condition -> expression EQ . expression
+    (10) expression -> . IDENTIFIER
+    (11) expression -> . NUMBER
+    (12) expression -> . IDENTIFIER PLUS NUMBER
+    (13) expression -> . IDENTIFIER MINUS NUMBER
+
+    IDENTIFIER      shift and go to state 6
+    NUMBER          shift and go to state 7
+
+    expression                     shift and go to state 19
+
+state 10
+
+    (5) condition -> expression NEQ . expression
+    (10) expression -> . IDENTIFIER
+    (11) expression -> . NUMBER
+    (12) expression -> . IDENTIFIER PLUS NUMBER
+    (13) expression -> . IDENTIFIER MINUS NUMBER
+
+    IDENTIFIER      shift and go to state 6
+    NUMBER          shift and go to state 7
+
+    expression                     shift and go to state 20
+
+state 11
+
+    (6) condition -> expression LT . expression
+    (10) expression -> . IDENTIFIER
+    (11) expression -> . NUMBER
+    (12) expression -> . IDENTIFIER PLUS NUMBER
+    (13) expression -> . IDENTIFIER MINUS NUMBER
+
+    IDENTIFIER      shift and go to state 6
+    NUMBER          shift and go to state 7
+
+    expression                     shift and go to state 21
+
+state 12
+
+    (7) condition -> expression GT . expression
+    (10) expression -> . IDENTIFIER
+    (11) expression -> . NUMBER
+    (12) expression -> . IDENTIFIER PLUS NUMBER
+    (13) expression -> . IDENTIFIER MINUS NUMBER
+
+    IDENTIFIER      shift and go to state 6
+    NUMBER          shift and go to state 7
+
+    expression                     shift and go to state 22
+
+state 13
+
+    (8) condition -> expression LE . expression
+    (10) expression -> . IDENTIFIER
+    (11) expression -> . NUMBER
+    (12) expression -> . IDENTIFIER PLUS NUMBER
+    (13) expression -> . IDENTIFIER MINUS NUMBER
+
+    IDENTIFIER      shift and go to state 6
+    NUMBER          shift and go to state 7
+
+    expression                     shift and go to state 23
+
+state 14
+
+    (9) condition -> expression GE . expression
+    (10) expression -> . IDENTIFIER
+    (11) expression -> . NUMBER
+    (12) expression -> . IDENTIFIER PLUS NUMBER
+    (13) expression -> . IDENTIFIER MINUS NUMBER
+
+    IDENTIFIER      shift and go to state 6
+    NUMBER          shift and go to state 7
+
+    expression                     shift and go to state 24
+
+state 15
+
+    (12) expression -> IDENTIFIER PLUS . NUMBER
+
+    NUMBER          shift and go to state 25
+
+
+state 16
+
+    (13) expression -> IDENTIFIER MINUS . NUMBER
+
+    NUMBER          shift and go to state 26
+
+
+state 17
+
+    (1) ifelse -> IF LPAREN condition RPAREN block . else_part
+    (2) else_part -> . ELSE block
+    (3) else_part -> . empty
+    (20) empty -> .
+
+    ELSE            shift and go to state 28
+    $end            reduce using rule 20 (empty -> .)
+    RBRACE          reduce using rule 20 (empty -> .)
+    IDENTIFIER      reduce using rule 20 (empty -> .)
+    IF              reduce using rule 20 (empty -> .)
+
+    else_part                      shift and go to state 27
+    empty                          shift and go to state 29
+
+state 18
+
+    (15) block -> LBRACE . statement_list RBRACE
+    (16) statement_list -> . statement
+    (17) statement_list -> . statement_list statement
+    (18) statement -> . assignment
+    (19) statement -> . ifelse
+    (14) assignment -> . IDENTIFIER ASSIGN expression SEMICOLON
+    (1) ifelse -> . IF LPAREN condition RPAREN block else_part
+
+    IDENTIFIER      shift and go to state 34
+    IF              shift and go to state 2
+
+    statement_list                 shift and go to state 30
+    statement                      shift and go to state 31
+    assignment                     shift and go to state 32
+    ifelse                         shift and go to state 33
+
+state 19
+
+    (4) condition -> expression EQ expression .
+
+    RPAREN          reduce using rule 4 (condition -> expression EQ expression .)
+
+
+state 20
+
+    (5) condition -> expression NEQ expression .
+
+    RPAREN          reduce using rule 5 (condition -> expression NEQ expression .)
+
+
+state 21
+
+    (6) condition -> expression LT expression .
+
+    RPAREN          reduce using rule 6 (condition -> expression LT expression .)
+
+
+state 22
+
+    (7) condition -> expression GT expression .
+
+    RPAREN          reduce using rule 7 (condition -> expression GT expression .)
+
+
+state 23
+
+    (8) condition -> expression LE expression .
+
+    RPAREN          reduce using rule 8 (condition -> expression LE expression .)
+
+
+state 24
+
+    (9) condition -> expression GE expression .
+
+    RPAREN          reduce using rule 9 (condition -> expression GE expression .)
+
+
+state 25
+
+    (12) expression -> IDENTIFIER PLUS NUMBER .
+
+    EQ              reduce using rule 12 (expression -> IDENTIFIER PLUS NUMBER .)
+    NEQ             reduce using rule 12 (expression -> IDENTIFIER PLUS NUMBER .)
+    LT              reduce using rule 12 (expression -> IDENTIFIER PLUS NUMBER .)
+    GT              reduce using rule 12 (expression -> IDENTIFIER PLUS NUMBER .)
+    LE              reduce using rule 12 (expression -> IDENTIFIER PLUS NUMBER .)
+    GE              reduce using rule 12 (expression -> IDENTIFIER PLUS NUMBER .)
+    RPAREN          reduce using rule 12 (expression -> IDENTIFIER PLUS NUMBER .)
+    SEMICOLON       reduce using rule 12 (expression -> IDENTIFIER PLUS NUMBER .)
+
+
+state 26
+
+    (13) expression -> IDENTIFIER MINUS NUMBER .
+
+    EQ              reduce using rule 13 (expression -> IDENTIFIER MINUS NUMBER .)
+    NEQ             reduce using rule 13 (expression -> IDENTIFIER MINUS NUMBER .)
+    LT              reduce using rule 13 (expression -> IDENTIFIER MINUS NUMBER .)
+    GT              reduce using rule 13 (expression -> IDENTIFIER MINUS NUMBER .)
+    LE              reduce using rule 13 (expression -> IDENTIFIER MINUS NUMBER .)
+    GE              reduce using rule 13 (expression -> IDENTIFIER MINUS NUMBER .)
+    RPAREN          reduce using rule 13 (expression -> IDENTIFIER MINUS NUMBER .)
+    SEMICOLON       reduce using rule 13 (expression -> IDENTIFIER MINUS NUMBER .)
+
+
+state 27
+
+    (1) ifelse -> IF LPAREN condition RPAREN block else_part .
+
+    $end            reduce using rule 1 (ifelse -> IF LPAREN condition RPAREN block else_part .)
+    RBRACE          reduce using rule 1 (ifelse -> IF LPAREN condition RPAREN block else_part .)
+    IDENTIFIER      reduce using rule 1 (ifelse -> IF LPAREN condition RPAREN block else_part .)
+    IF              reduce using rule 1 (ifelse -> IF LPAREN condition RPAREN block else_part .)
+
+
+state 28
+
+    (2) else_part -> ELSE . block
+    (15) block -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 18
+
+    block                          shift and go to state 35
+
+state 29
+
+    (3) else_part -> empty .
+
+    $end            reduce using rule 3 (else_part -> empty .)
+    RBRACE          reduce using rule 3 (else_part -> empty .)
+    IDENTIFIER      reduce using rule 3 (else_part -> empty .)
+    IF              reduce using rule 3 (else_part -> empty .)
+
+
+state 30
+
+    (15) block -> LBRACE statement_list . RBRACE
+    (17) statement_list -> statement_list . statement
+    (18) statement -> . assignment
+    (19) statement -> . ifelse
+    (14) assignment -> . IDENTIFIER ASSIGN expression SEMICOLON
+    (1) ifelse -> . IF LPAREN condition RPAREN block else_part
+
+    RBRACE          shift and go to state 36
+    IDENTIFIER      shift and go to state 34
+    IF              shift and go to state 2
+
+    statement                      shift and go to state 37
+    assignment                     shift and go to state 32
+    ifelse                         shift and go to state 33
+
+state 31
+
+    (16) statement_list -> statement .
+
+    RBRACE          reduce using rule 16 (statement_list -> statement .)
+    IDENTIFIER      reduce using rule 16 (statement_list -> statement .)
+    IF              reduce using rule 16 (statement_list -> statement .)
+
+
+state 32
+
+    (18) statement -> assignment .
+
+    RBRACE          reduce using rule 18 (statement -> assignment .)
+    IDENTIFIER      reduce using rule 18 (statement -> assignment .)
+    IF              reduce using rule 18 (statement -> assignment .)
+
+
+state 33
+
+    (19) statement -> ifelse .
+
+    RBRACE          reduce using rule 19 (statement -> ifelse .)
+    IDENTIFIER      reduce using rule 19 (statement -> ifelse .)
+    IF              reduce using rule 19 (statement -> ifelse .)
+
+
+state 34
+
+    (14) assignment -> IDENTIFIER . ASSIGN expression SEMICOLON
+
+    ASSIGN          shift and go to state 38
+
+
+state 35
+
+    (2) else_part -> ELSE block .
+
+    $end            reduce using rule 2 (else_part -> ELSE block .)
+    RBRACE          reduce using rule 2 (else_part -> ELSE block .)
+    IDENTIFIER      reduce using rule 2 (else_part -> ELSE block .)
+    IF              reduce using rule 2 (else_part -> ELSE block .)
+
+
+state 36
+
+    (15) block -> LBRACE statement_list RBRACE .
+
+    ELSE            reduce using rule 15 (block -> LBRACE statement_list RBRACE .)
+    $end            reduce using rule 15 (block -> LBRACE statement_list RBRACE .)
+    RBRACE          reduce using rule 15 (block -> LBRACE statement_list RBRACE .)
+    IDENTIFIER      reduce using rule 15 (block -> LBRACE statement_list RBRACE .)
+    IF              reduce using rule 15 (block -> LBRACE statement_list RBRACE .)
+
+
+state 37
+
+    (17) statement_list -> statement_list statement .
+
+    RBRACE          reduce using rule 17 (statement_list -> statement_list statement .)
+    IDENTIFIER      reduce using rule 17 (statement_list -> statement_list statement .)
+    IF              reduce using rule 17 (statement_list -> statement_list statement .)
+
+
+state 38
+
+    (14) assignment -> IDENTIFIER ASSIGN . expression SEMICOLON
+    (10) expression -> . IDENTIFIER
+    (11) expression -> . NUMBER
+    (12) expression -> . IDENTIFIER PLUS NUMBER
+    (13) expression -> . IDENTIFIER MINUS NUMBER
+
+    IDENTIFIER      shift and go to state 6
+    NUMBER          shift and go to state 7
+
+    expression                     shift and go to state 39
+
+state 39
+
+    (14) assignment -> IDENTIFIER ASSIGN expression . SEMICOLON
+
+    SEMICOLON       shift and go to state 40
+
+
+state 40
+
+    (14) assignment -> IDENTIFIER ASSIGN expression SEMICOLON .
+
+    RBRACE          reduce using rule 14 (assignment -> IDENTIFIER ASSIGN expression SEMICOLON .)
+    IDENTIFIER      reduce using rule 14 (assignment -> IDENTIFIER ASSIGN expression SEMICOLON .)
+    IF              reduce using rule 14 (assignment -> IDENTIFIER ASSIGN expression SEMICOLON .)
+
